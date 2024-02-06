@@ -1,0 +1,119 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %} about {% endblock %} 
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1 class="display-4">حول أكاديمية السفير</h1>
+        <p class="lead">
+            في أكاديمية السفير نساعد كل طالب على تحديد مواهبه الفريدة وتوجيهه نحو تحقيق أهدافه. من خلال تجارب التعلم العملي والدعم الفردي، يتفوق طلابنا بما يتجاوز توقعاتهم.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'index' %}"> <i class="fas fa-home"></i> الرئيسية</a>
+        </li>
+        <li class="breadcrumb-item active">بخصوصنا</li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<section id="about" class="py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>التميز الملهم منذ [سنة التأسيس]</h2>
+        <p class="lead">
+          لأكثر من [عدد] سنوات، ساعدنا آلاف الطلاب على تحقيق إمكاناتهم الكاملة. بفضل مناهجنا المبتكرة ومعلمينا المتفانين، نقوم بتحويل الأحلام إلى حقائق وفتح أبواب الفرص لكل طفل.
+        </p>
+        <img src="{% static 'assets/img/about.jpg' %}" alt="" />
+        <h3>تجربة متعة التعلم</h3>
+        <p class="my-3">
+          تضفي أكاديميتنا الحياة على التعلم من خلال الاستكشاف والاكتشاف والإبداع. في الفصول الصغيرة والمرافق الحديثة، يزدهر مجتمعنا من الطلاب والمعلمين معًا في رحلة التعليم المشتركة.
+        </p>
+        <h3>استعد لمستقبلك</h3>
+        <p class="mt-4">
+          انضم إلى مجتمعنا الداعم واتخذ الخطوة التالية نحو أهدافك وتطلعاتك. سنقوم بتزويدك بالمهارات والمعرفة والثقة لتحقيق أي شيء تضعه في ذهنك. مستقبلك يبدأ هنا.
+        </p>
+      </div>
+      {% if best_seller %}
+      <div class="col-md-4">
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="{{best_seller.photo.url}}"
+            alt="Seller of the month"
+          />
+          <div class="card-body">
+            <h5 class="card-title">بائع الشهر</h5>
+            <h6 class="text-secondary">{{best_seller.name}}</h6>
+            <p class="card-text">
+              {{best_seller.description}}
+            </p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- Work -->
+<section id="work" class="bg-dark text-white text-center">
+  <h2 class="display-4 text-center ">نحو جيل مبدع</h2>
+  <h4 class="text-center my-3 ">
+    ساعد في تطوير برامج التدريب والمواد والتدريب للموظفين لتوجيه الطلاب بشكل أفضل خلال التحديات وتحسين التعلم.
+  </h4>
+  <hr />
+  <a href="{% url 'listings' %}" class="btn btn-secondary text-white btn-lg"
+    >عرض قوائمنا المميزة</a
+  >
+</section>
+
+<!-- Team -->
+<section id="team" class="py-5">
+  <div class="container">
+    <h2 class="text-center">فريقنا</h2>
+
+    <hr>
+    <div class="row gap-2 text-center">
+      {% if instructors %}
+        {% for instructor in instructors %}          
+        <div class="col-md-4 p-2 mb-2 border">
+          <img
+            src="{{instructor.photo.url}}"
+            alt=""
+            class="rounded-circle mb-3"
+          />
+          <h4 class="text-center">{{instructor.name}}</h4>
+          <p class="text-success text-center">
+            <i class="fas fa-award text-success mb-3"></i> مدرب الدورة
+          </p>
+          <hr />
+          <p class="text-md-center"><i class="fas fa-phone text-center"></i> {{instructor.phone}}</p>
+          <p class="text-md-center"><i class="fas fa-envelope-open"></i> {{instructor.email}}</p>
+          <hr>
+        </div>
+        {% endfor %}
+      {% else %}
+      <div class="col-12">
+        <p>لا يوجد مدربون في قاعدة البيانات</p>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

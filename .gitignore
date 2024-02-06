@@ -1,0 +1,11 @@
+*.log
+*.pyc
+*.pot
+venv
+.vscode
+/static
+/media
+__pycache__/
+db.sqlite3
+postgres_cnx.session.sql
+local_setting.py

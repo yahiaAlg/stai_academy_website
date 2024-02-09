@@ -7,4 +7,5 @@ venv
 /media
 __pycache__/
 postgres_cnx.session.sql
+db.sqlite3
 local_setting.py

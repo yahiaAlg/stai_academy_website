@@ -125,7 +125,7 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "static/"
-STATICFILES_DIRS = [os.path.join("academy_courses/static")]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "academy_courses/static")]
 
 # Media files (Audio, Video, Images)
 MEDIA_URL = "media/"

@@ -16,7 +16,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-import environ
+import environ,os
 
 env = environ.Env()
 environ.Env.read_env()
@@ -25,10 +25,10 @@ environ.Env.read_env()
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-e(qy@)@4!z_$^jvamb1nk7ul#1()x*8*jrs*7wxu2364z!d86e"
+SECRET_KEY = os.environ.get("SECRET_KEY", "some_secret_key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get("DEBUG", True)
 
 ALLOWED_HOSTS = ["*"]
 
@@ -88,7 +88,7 @@ WSGI_APPLICATION = "academy_courses.wsgi.application"
 # don't forget to install psycopg2 and psycopg2-binary package drivers for postgress db
 import dj_database_url
 
-DATABASES = {"default": dj_database_url.parse(env("DATABASE_URL"))}
+DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL",""))}
 
 
 # Password validation
@@ -132,6 +132,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "academy_courses/static")]
 # Media files (Audio, Video, Images)
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+if not DEBUG:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 

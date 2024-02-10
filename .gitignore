@@ -3,6 +3,7 @@
 *.pot
 venv
 .vscode
+.env
 /static
 /media
 __pycache__/

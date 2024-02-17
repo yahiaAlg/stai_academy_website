@@ -7,7 +7,7 @@
   {% if user.is_authenticated %}
 
     <div class="container my-5">
-      <div class="p-5 text-center bg-body-tertiary rounded-3">
+      <div class="p-1 p-md-5 text-center bg-body-tertiary rounded-3">
         {% include 'partials/_alerts.html' %}
         <h1 class="text-body-emphasis">{{user.username}} ي(ت)شاهد</h1>
 
@@ -25,7 +25,7 @@
           </div>
 
           {# Controls #}
-          <div class="d-flex flex-column flex-md-row  gap-2 mb-5">
+          <div class="d-flex flex-column flex-md-row justify-content-stretch  gap-2 mb-5">
             {% if user.groups.all.first.name == "teacher" %}
             <a class="d-flex flex-column my-1 mx-1 flex-md-row  align-items-center btn btn-secondary btn-lg mx-3 px-4 rounded-pill" 
             href="javascript:document.getElementById('notice-{{notice.id}}').submit();" role="button">

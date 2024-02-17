@@ -5,7 +5,7 @@
 {% block content %}
   {% if user.is_authenticated %}
     <div class="container my-5" bis_skin_checked="1">
-      <div class="p-5 text-center bg-body-tertiary rounded-3" bis_skin_checked="1">
+      <div class="p-1 p-md-5 text-center bg-body-tertiary rounded-3" bis_skin_checked="1">
       {% include 'partials/_alerts.html' %}
         <svg class="bi mt-2" style="color: var(--bs-indigo);" width="100" height="100"><use xlink:href="#bootstrap"></use></svg>
         <h1 class="text-body-emphasis">مرحبا {{user.username}}</h1>
@@ -24,11 +24,11 @@
           {% endfor %}
         </div>
 
-        <div class="d-flex flex-column flex-md-row my-1 mx-1  gap-2 mb-5" bis_skin_checked="1">
-          <a class="d-flex flex-column flex-md-row my-1 mx-1  align-items-center btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'logout' %}">
+        <div class="d-flex flex-column flex-md-row justify-content-stretch my-1 mx-1  gap-2 mb-5" bis_skin_checked="1">
+          <a class="d-flex flex-column flex-md-row justify-content-stretch my-1 mx-1  align-items-center btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'logout' %}">
             تسجيل الخروج
           </a>
-          <a class="d-flex flex-column flex-md-row my-1 mx-1  align-items-center btn btn-info btn-lg mx-3 px-4 rounded-pill" href="{% url 'dashboard_appendix' %}">
+          <a class="d-flex flex-column flex-md-row justify-content-stretch my-1 mx-1  align-items-center btn btn-info btn-lg mx-3 px-4 rounded-pill" href="{% url 'dashboard_appendix' %}">
               عرض الاستفسارات حول الدورات
           </a>
         </div>

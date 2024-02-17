@@ -25,9 +25,9 @@
           </div>
 
           {# Controls #}
-          <div class="d-inline-flex gap-2 mb-5">
+          <div class="d-flex flex-column flex-md-row  gap-2 mb-5">
             {% if user.groups.all.first.name == "teacher" %}
-            <a class="d-inline-flex align-items-center btn btn-secondary btn-lg mx-3 px-4 rounded-pill" 
+            <a class="d-flex flex-column my-1 flex-md-row  align-items-center btn btn-secondary btn-lg mx-3 px-4 rounded-pill" 
             href="javascript:document.getElementById('notice-{{notice.id}}').submit();" role="button">
               تحديث الإشعار
               <form action="{% url 'update_notice' %}" method="get" id="notice-{{notice.id}}">
@@ -36,7 +36,7 @@
               </form>
             </a>
 
-            <a class="d-inline-flex align-items-center btn btn-secondary btn-lg px-4 rounded-pill" 
+            <a class="d-flex flex-column my-1 flex-md-row  align-items-center btn btn-secondary btn-lg px-4 rounded-pill" 
             href="javascript:if (confirm('are you sure you want to delete the notice')) document.getElementById('notice-delete-{{notice.id}}').submit();" role="button">
               احذف الإشعار
               <form action="{% url 'delete_notice' %}" method="post" id="notice-delete-{{notice.id}}">
@@ -47,7 +47,7 @@
             {% else %}
 
             {% endif %}
-            <a class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'logout' %}">
+            <a class="d-flex flex-column my-1 flex-md-row  align-items-center btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'logout' %}">
               Logout
             </a>
           </div>          

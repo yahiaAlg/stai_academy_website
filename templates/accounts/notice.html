@@ -34,9 +34,9 @@
             <br><i class="text-i,fo">منذ {{notice.date_sent|timesince}}</i>
           </div>
         </div>
-        <div class="d-inline-flex gap-2 mb-5">
+        <div class="d-flex flex-column my-1 flex-md-row gap-2 mb-5">
           {% if user.groups.all.first.name == "teacher" %}
-          <a class="d-inline-flex align-items-center btn btn-secondary btn-lg mx-3 px-4 rounded-pill" 
+          <a class="d-flex flex-column my-1 flex-md-row align-items-center btn btn-secondary btn-lg mx-3 px-4 rounded-pill" 
           href="javascript:document.getElementById('notice-{{notice.id}}').submit();" role="button">
             تعديل على الإشعار
             <form action="{% url 'update_notice' %}" method="get" id="notice-{{notice.id}}">
@@ -47,7 +47,7 @@
           {% else %}
             
           {% endif %}
-          <a class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'logout' %}">
+          <a class="d-flex flex-column my-1 flex-md-row align-items-center btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'logout' %}">
             تسجيل الخروج
           </a>
         </div>

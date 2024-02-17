@@ -39,7 +39,9 @@ def contact(request):
 
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as connection:
             proxy_email_address = "yahialinus21alg@gmail.com"
-            proxy_email_password = "qxnx wwlu ehuj kjtg"  # Use the App Password you generated
+            proxy_email_password = (
+                "imkg qebv qppb dtsu"  # Use the App Password you generated
+            )
             pprint(connection.login(proxy_email_address, proxy_email_password))
             listing_str = listing.title.encode("utf-8")
             message = message.encode("utf-8")

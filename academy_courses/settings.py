@@ -16,7 +16,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-import environ,os
+import environ, os
 
 env = environ.Env()
 environ.Env.read_env()
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.humanize",
+    "django_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -88,7 +89,7 @@ WSGI_APPLICATION = "academy_courses.wsgi.application"
 # don't forget to install psycopg2 and psycopg2-binary package drivers for postgress db
 import dj_database_url
 
-DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL",""))}
+DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL", ""))}
 
 
 # Password validation

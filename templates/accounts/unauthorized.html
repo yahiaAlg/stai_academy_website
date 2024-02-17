@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block title %} home {% endblock %} 
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <div class="container my-5" bis_skin_checked="1">
+      <div class="p-5 text-center bg-body-tertiary rounded-3" bis_skin_checked="1">
+      {% include 'partials/_alerts.html' %}
+        <svg class="bi mt-4 mb-3" style="color: var(--bs-indigo);" width="100" height="100"><use xlink:href="#bootstrap"></use></svg>
+        <h1 class="text-body-emphasis">Welcome {{user.username}}</h1>
+        <div class='alert alert-warning alert-dismissible fade show' role='alert'>غير مصرح لك بمشاهدة هذه الصفحة<button class='btn-close' data-bs-dismiss='alert'></button></div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

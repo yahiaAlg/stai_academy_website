@@ -1,23 +1,23 @@
-{% if messages %} {% for message in messages %}
-<div class="container">
-  <div
-    id="messages"
-    class="alert
-    {% if message.tags == 'error' %}
-        alert-danger
-    {% else %}
-        alert-success
-    {% endif %}    
-    alert-dismissible fade show text-center"
-    role="alert"
-  >
-    <button class="close" data-dismiss="alert">
-      <span aria-hidden="true">&times;</span>
+{% for message in messages %}
+    <div class="alert 
+    {% if message.tag == 'success' %}
+    alert-success
+    {% elif message.tag == 'warning' %}
+    alert-warning
+    {% elif message.tag == 'error' %}
+    alert-danger
+    {% endif %}
+    alert-dismissible fade show">
+        {{message}}
+    <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">×</span>
     </button>
-    <strong>
-        {{message.tags|title}}:
-    </strong>
-    {{message}}
-  </div>
-</div>
-{% endfor %} {% endif %}
+    </div>
+{% empty %}
+
+{% endfor %}
+<script>
+    window.addEventListener("DOMContentLoaded", ()=>{
+        document.querySelectorAll(".close").forEach((messageBtn)=>messageBtn.click())
+    })
+</script>

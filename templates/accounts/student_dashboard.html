@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block title %} home {% endblock %} 
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <div class="container my-5" bis_skin_checked="1">
+      <div class="p-5 text-center bg-body-tertiary rounded-3" bis_skin_checked="1">
+      {% include 'partials/_alerts.html' %}
+
+        <h1 class="text-warning mb-4">مرحبا {{user.username}}</h1>
+        <table class="table table-striped border my-4">
+          <thead>
+            <tr>
+              <th>أستاذ(ة)</th>
+              <th>مادة</th>
+              <th>ملاحظة</th>
+              <th>شاهد المزيد</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for notice in notices %}
+              <tr>
+                <td>{{notice.teacher}}</td>
+                <td>{{notice.subject}}</td>
+                <td>{{notice.title}}</td>
+                <td><a href="{% url 'notice' notice.id %}" class="btn btn-warning">شاهد المزيد</a></td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td>لا شيء لإظهاره</td>
+                <td>لا شيء لإظهاره</td>
+                <td>لا شيء لإظهاره</td>
+                <td>لا شيء لإظهاره</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="list-group my-2" role="group">
+          {% for subject in subjects %}
+            <a href="#" class="list-group-item"> {{subject}} </a>
+          {% empty %}
+            أنت لست مسجلاً في أي دورة أو مادة تعليمية
+          {% endfor %}
+        </div>
+        <div class="d-inline-flex gap-2 mb-5" bis_skin_checked="1">
+          <a class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'logout' %}">
+            تسجيل الخروج
+          </a>
+          <a class="d-inline-flex align-items-center btn btn-info btn-lg mx-3 px-4 rounded-pill" href="{% url 'dashboard_appendix' %}">
+              عرض الاستفسارات حول الدورات
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

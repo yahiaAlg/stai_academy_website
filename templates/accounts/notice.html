@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load humanize %}
+{% block title %} home {% endblock %} 
+
+{% block content %}
+  {% if user.is_authenticated %}
+    {% with role=user.groups.all.first.name  %}
+      {% if role == "parent" or role == "student" %}
+        <p class="alert alert-info alert-dismissible fade show mt-2 mx-auto w-50">
+          <span class="fw-bold">ملاحظة:</span> لقد قرأت هذا الإخطار الذي أرسلته إليك {{notice.teacher.owner}} في {% now "jS \o\f F" %} على {% now " H:i:s " %}
+          <button type="button" class="close" aria-label="Close">
+              <span aria-hidden="true">×</span>
+          </button>
+        </p>
+        {% else %}
+        <p class="alert alert-warning alert-dismissible fade show mt-2 mx-auto w-50"> دخلت الصفحة كأستاذ للمادة
+        <button type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      {% endif %}      
+    {% endwith %}
+
+    <div class="container my-3">
+      <div class="p-5 text-center bg-body-tertiary rounded-3">
+        <h1 class="text-body-emphasis">مرحبا {{user.username}}</h1>
+        <div class="card my-3">
+          <div class="card-header"><h2>{{notice.title}}</h2></div>
+          <div class="card-body"><h3 class="card-title">{{notice.subject}}</h3>
+          <p class="card-text">{{notice.body}}</p></div>
+          <div class="card-footer">
+            <small class="text-warning">{{notice.teacher.owner}}</small>
+            <small class="text-warning">إلى {{notice.student.owner}}</small>
+            <br><i class="text-i,fo">منذ {{notice.date_sent|timesince}}</i>
+          </div>
+        </div>
+        <div class="d-inline-flex gap-2 mb-5">
+          {% if user.groups.all.first.name == "teacher" %}
+          <a class="d-inline-flex align-items-center btn btn-secondary btn-lg mx-3 px-4 rounded-pill" 
+          href="javascript:document.getElementById('notice-{{notice.id}}').submit();" role="button">
+            تعديل على الإشعار
+            <form action="{% url 'teacher_dashboard' %}" method="get" id="notice-{{notice.id}}">
+              {% csrf_token %}
+              <input type="hidden" name="notice_to_edit" value="{{notice.id}}" >
+            </form>
+          </a>
+          {% else %}
+            
+          {% endif %}
+          <a class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'logout' %}">
+            تسجيل الخروج
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  <script>
+    window.addEventListener("DOMContentLoaded", ()=>{
+      setTimeout(function(){
+        document.querySelector("button.close").click();
+      }, 1000);
+    });
+  </script>
+{% endblock %}

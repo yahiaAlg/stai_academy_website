@@ -1,84 +1,37 @@
 {% extends 'base.html' %}
-{% block title %}
-  register
-{% endblock %}
+{% load django_bootstrap5 %}
+{% block title %} home {% endblock %} 
+
 {% block content %}
-<section id="register" class="bg-light py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 mx-auto">
-        <div class="card">
-          <div class="card-header bg-primary text-white">
-            <h4><i class="fas fa-user-plus"></i> تسجيل</h4>
-          </div>
-          <div class="card-body">
-            {% include 'partials/_alerts.html' %}
-            <form action="{% url 'register' %}" method="post">
-              {% csrf_token %}
-              <div class="form-group">
-                <label for="first_name">اسمك الاول</label>
-                <input
-                  type="text"
-                  name="first_name"
-                  class="form-control"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="last_name">الاسم الأخير</label>
-                <input
-                  type="text"
-                  name="last_name"
-                  class="form-control"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="username">اسم مستخدم</label>
-                <input
-                  type="text"
-                  name="username"
-                  class="form-control"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="email">بريد إلكتروني</label>
-                <input
-                  type="email"
-                  name="email"
-                  class="form-control"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="password2">كلمة المرور</label>
-                <input
-                  type="password"
-                  name="password"
-                  class="form-control"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="password">تأكيد كلمة المرور</label>
-                <input
-                  type="password"
-                  name="password2"
-                  class="form-control"
-                  required
-                />
-              </div>
-              <input
-                type="submit"
-                value="تسجيل"
-                class="btn btn-secondary text-center btn-block"
-              />
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<form action="{% url 'register' %}" method="post" class="container my-4" data-bs-theme="dark">
+  {% csrf_token %}
+
+  {% bootstrap_form form %}
+  {% bootstrap_button button_type="reset" content="محو الكل" %}
+  {% bootstrap_button button_type="submit" content=" تسجيل كمستخدم جديد" %}
+  <a class="btn btn-secondary " href="{% url 'login' %}" role="button">تسجيل الدخول</a>
+</form>
+
+<script>
+  window.addEventListener("DOMContentLoaded", ()=>{
+    // get the forms we want to apply custom Bootstrap validation styles to
+    var select = document.querySelector("#id_group");
+    select.classList.remove("form-select");
+    select.classList.add("form-control");
+    var resetBtn = document.querySelector("button[type='reset']");
+    resetBtn.classList.remove("btn-primary");
+    resetBtn.classList.add("btn-danger");
+    var registerBtn = document.querySelector("a.btn");
+    registerBtn.classList.remove("btn-primary");
+    registerBtn.classList.add("btn-info");
+
+    var label = document.querySelector(".form-check-label");
+    label.textContent = "تسجيل كعضو من طاقم العمل"
+    label.classList.add("px-3");
+
+
+    var checkMembership = document.querySelector("#id_is_staff");
+    checkMembership.removeAttribute("required");
+  });
+</script>
 {% endblock %}

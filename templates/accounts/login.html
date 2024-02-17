@@ -1,46 +1,30 @@
 {% extends 'base.html' %}
-{% block title %}
-  login
-{% endblock %}
+{% load django_bootstrap5 %}
+{% block title %} home {% endblock %} 
 {% block content %}
-<section id="login" class="bg-light py-5" style="height: 71vh;">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 mx-auto">
-        <div class="card">
-          <div class="card-header bg-primary text-white">
-            <h4><i class="fas fa-sign-in-alt"></i> Login</h4>
-          </div>
-          <div class="card-body">
-            {% include 'partials/_alerts.html' %}
-            <form action="{% url 'login' %}" method="post">
-              {% csrf_token %}
-              <div class="form-group">
-                <label for="username">اسم مستخدم</label>
-                <input
-                  type="text"
-                  name="username"
-                  class="form-control"
-                  required
-                />
-              </div>
 
-              <div class="form-group">
-                <label for="password2">كلمة مرور</label>
-                <input
-                  type="password"
-                  name="password"
-                  class="form-control"
-                  required
-                  />
-                </div>
-                
-                <button type="submit" class="btn btn-info btn-block text-center">تسجيل دخول</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<form action="{% url 'login' %}" method="post" class="container my-5">
+  {% csrf_token %}
+
+  {% bootstrap_form form %}
+
+  <button type="submit" class="w-100 btn btn-lg btn-primary text-center">login</button>
+  <a href="{% url 'register' %}" class="w-100 mt-2 btn btn-outline-secondary text-center">Register</a>
+</form>
+<script>
+  window.addEventListener("DOMContentLoaded", ()=>{
+    // get the forms we want to apply custom Bootstrap validation styles to
+    var label = document.querySelector("div.mb-3:nth-child(2) > label:nth-child(1)");
+    label.textContent = "إسم المستخدم"
+
+    var label = document.querySelector("div.mb-3:nth-child(3) > label:nth-child(1)");
+    label.textContent = "كلمة المرور"
+
+    var label = document.querySelector("button.w-100");
+    label.textContent = "تسجيل الدخول"
+
+    var label = document.querySelector("a.w-100");
+    label.textContent = "تسجيل كمستخدم جديد"
+  });
+</script>
 {% endblock %}

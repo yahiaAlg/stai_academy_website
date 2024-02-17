@@ -1,5 +1,6 @@
 asgiref==3.7.2
 astroid==3.0.2
+Brotli==1.1.0
 build==1.0.3
 CacheControl==0.13.1
 certifi==2024.2.2
@@ -9,7 +10,9 @@ colorama==0.4.6
 crashtest==0.4.1
 dill==0.3.8
 distlib==0.3.8
-Django==5.0.1
+dj-database-url==2.1.0
+Django==5.0.2
+django-bootstrap5==23.4
 django-database-url==1.0.3
 django-environ==0.11.2
 dulwich==0.21.7
@@ -24,11 +27,12 @@ keyring==24.3.0
 mccabe==0.7.0
 more-itertools==10.2.0
 msgpack==1.0.7
+-e git+https://github.com/yahiaAlg/mysite.git@89c7479b3b249c1a307e2e30590bac08e0317dff#egg=mysite
 packaging==23.2
 pexpect==4.9.0
 pillow==10.2.0
 pkginfo==1.9.6
-platformdirs==3.11.0
+platformdirs==4.2.0
 poetry==1.7.1
 poetry-core==1.8.1
 poetry-plugin-export==1.6.0
@@ -47,6 +51,7 @@ shellingham==1.5.4
 sqlparse==0.4.4
 tomlkit==0.12.3
 trove-classifiers==2024.1.31
+typing_extensions==4.9.0
 tzdata==2023.4
 urllib3==2.2.0
 virtualenv==20.25.0

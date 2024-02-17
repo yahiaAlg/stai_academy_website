@@ -39,7 +39,7 @@
           <a class="d-inline-flex align-items-center btn btn-secondary btn-lg mx-3 px-4 rounded-pill" 
           href="javascript:document.getElementById('notice-{{notice.id}}').submit();" role="button">
             تعديل على الإشعار
-            <form action="{% url 'teacher_dashboard' %}" method="get" id="notice-{{notice.id}}">
+            <form action="{% url 'update_notice' %}" method="get" id="notice-{{notice.id}}">
               {% csrf_token %}
               <input type="hidden" name="notice_to_edit" value="{{notice.id}}" >
             </form>

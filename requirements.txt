@@ -32,7 +32,6 @@ pexpect
 pillow  
 pkginfo  
 platformdirs  
-psycopg2  
 psycopg2-binary  
 ptyprocess  
 pylint  

@@ -89,7 +89,13 @@ WSGI_APPLICATION = "academy_courses.wsgi.application"
 # don't forget to install psycopg2 and psycopg2-binary package drivers for postgress db
 import dj_database_url
 
-DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL", ""))}
+# DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL", ""))}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 
 # Password validation

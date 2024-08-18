@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+{% load global_tags %}
 {% block title %}
   listing-{{listing.title}}
 {% endblock %}
@@ -138,7 +139,7 @@
 
         <!-- Description -->
         <div class="row mb-5">
-          <div class="col-md-12">{{ listing.description}}</div>
+          <div class="col-md-12">{{ listing.description|markdown}}</div>
         </div>
       </div>
       <div class="col-md-3">

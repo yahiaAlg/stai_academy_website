@@ -157,3 +157,8 @@ EMAIL_HOST_USER = "yahialinus21alg@gmail.com"
 EMAIL_HOST_PASSWORD = "imkg qebv qppb dtsu"
 EMAIL_PORT = 465
 EMAIL_HOST_TLS = True
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass

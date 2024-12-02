@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "some_secret_key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", True)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["92.222.24.51", "www.stai-academy.site", "stai-academy.site"]
 
 
 # Application definition
@@ -154,6 +154,6 @@ MESSAGES_TAGS = {messages.ERROR: "danger"}
 
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "yahialinus21alg@gmail.com"
-EMAIL_HOST_PASSWORD = "imkg qebv qppb dtsu"
+EMAIL_HOST_PASSWORD = "tcwg hexf dnpk qlhu"
 EMAIL_PORT = 465
 EMAIL_HOST_TLS = True

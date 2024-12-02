@@ -1,8 +1,12 @@
 from pprint import pprint
-from django.shortcuts import render, redirect
-from django.contrib import messages, auth
-from django.contrib.auth.models import User
 from contacts.models import Contact
+from django.contrib import auth
+from django.contrib.auth.models import User, Group
+from .forms import LoginForm, RegisterForm, AddNoticeForm
+from django.contrib.auth.decorators import login_required
+from .decorators import *
+from django.contrib import messages
+from .models import *
 
 
 # Create your views here.
@@ -82,16 +86,7 @@ def dashboard_v1(request):
     return render(request, "accounts/dashboard.html", context)
 
 
-from django.contrib.auth.models import Group
 from pprint import pprint
-from django.shortcuts import redirect, render
-from django.contrib.auth.decorators import login_required
-from django.urls import reverse
-from .decorators import *
-from django.contrib import auth
-from django.contrib import messages
-from .forms import LoginUserForm, RegisterUserForm, AddNoticeForm
-from .models import *
 
 
 # Create your views here.
@@ -131,63 +126,69 @@ def dashboard_appendix(request):
 
 @unauthenticated_user
 def register(request):
-
     if request.method == "POST":
-        form = RegisterUserForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            user.groups.add(Group.objects.get(id=form.cleaned_data["group"]))
-            pprint(user)
+            # Create user
+            user = User.objects.create_user(
+                username=form.cleaned_data["username"],
+                email=form.cleaned_data["email"],
+                password=form.cleaned_data["password"],
+            )
 
-            # redirect to a success page.
+            # Add user to group
+            group = Group.objects.get(id=form.cleaned_data["group"])
+            user.groups.add(group)
+
+            # Create profile
+            profile = Profile.objects.create(
+                owner=user, bio="", role=group.name.lower()
+            )
+
+            # Save phone number in profile's bio for now
+            profile.phone = form.cleaned_data["phone"]
+            profile.bio = f"Phone: {form.cleaned_data['phone']}"
+            profile.save()
+
             return redirect("dashboard")
-        else:
-            context = {"form": form}
-            return render(request, "accounts/register.html", context)
     else:
-        # If the request was GET, just render the form.
-        form = RegisterUserForm()
-        context = {"form": form}
-        return render(request, "accounts/register.html", context=context)
+        form = RegisterForm()
+
+    return render(request, "accounts/register.html", {"form": form})
 
 
 @unauthenticated_user
 def login(request):
-
     if request.method == "POST":
-        form = LoginUserForm(request.POST)
-        username = form.data["username"]
-        password = form.data["password1"]
-        user = auth.authenticate(username=username, password=password)
-        if user is not None and user.is_active:
-            # The password matched correctly. Note that authenticate() does run the checks on whether this
-            # user is active or not.
-            auth.login(request, user)
-            if request.user.groups.all().exists():
-                user_group = str(request.user.groups.all().first().name)
-                print(
-                    f"(shown in login){user_group} group is assigned to {request.user}"
-                )
-                match user_group:
-                    case "student":
-                        return redirect("student_dashboard")
-                    case "parent":
-                        return redirect("parent_dashboard")
-                    case "teacher":
-                        return redirect("teacher_dashboard")
-                    case _:
-                        return render(request, "accounts/dashboard.html")
-            else:
-                return render(request, "accounts/dashboard.html")
-        else:
-            form = LoginUserForm()
-            context = {"form": form}
-            return render(request, "accounts/login.html", context)
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user = auth.authenticate(username=username, password=password)
 
-    else:
-        form = LoginUserForm()
-        context = {"form": form}
-        return render(request, "accounts/login.html", context)
+            if user is not None and user.is_active:
+                auth.login(request, user)
+
+                if user.groups.exists():
+                    user_group = user.groups.first().name.lower()
+
+                    match user_group:
+                        case "student":
+                            return redirect("student_dashboard")
+                        case "parent":
+                            return redirect("parent_dashboard")
+                        case "teacher":
+                            return redirect("teacher_dashboard")
+                        case _:
+                            return render(request, "accounts/dashboard.html")
+
+                return render(request, "accounts/dashboard.html")
+
+        # If authentication failed or form invalid, return to login page
+        return render(request, "accounts/login.html", {"form": form})
+
+    form = LoginForm()
+    return render(request, "accounts/login.html", {"form": form})
 
 
 def logout(request):
@@ -234,10 +235,7 @@ def teacher_dashboard(request):
     notices = Notice.objects.filter(teacher=teacher_profile)
     if request.method == "POST":
         print("currently adding...")
-        form = AddNoticeForm(
-            request.POST
-        )
-
+        form = AddNoticeForm(request.POST)
 
         if form.is_valid():
             notice = form.save()
